@@ -59,4 +59,10 @@ public class client implements Serializable {
         this.code = code;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " code='" + getCode() + "'" + ", nom='" + getNom() + "'" + ", email='" + getEmail() + "'"
+                + ", comptes='" + getComptes() + "'" + "}";
+    }
+
 }
