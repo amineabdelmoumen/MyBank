@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface compteRepository extends JpaRepository<compte, String> {
-    @Query("select c from compte c where c.numCompte= :x")
+    @Query("select c from compte c where c.numCompte=:x")
     public compte findOne(@Param("x") String codecmp);
 }

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compte form</title>
+</head>
+
+<body class="body">
+    <div layout:fragment="content">
+        <p></p>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    cherchrer un compte par Code
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/save}" method="GET">
+                        <div class="form-group">
+                            <label>codecompte :</label>
+                            <input type="text" name="codeCompte" class="form-control" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">chercher</button>
+                    </form>
+                    <!-- <p th:text="${compte.numCompte}"></p>
+                    <p th:text="${compte.client.nom}"></p>
+                    <p th:text="${compte.client.email}"></p>
+ -->
+                </div>
+            </div>
+            <div class="panel panel-primary" th:if="${compte}">
+                <div class="panel-heading">
+                    Account informations
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="control-label">ID: </label>
+                        <label th:text="${compte.numCompte}"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="control-label">Designation :</label>
+                        <label th:text="${compte.solde}"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="control-label">Prix :</label>
+                        <label th:text="${compte.dateCreation}"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="control-label">Quantite :</label>
+                        <label th:text="${compte.class.simpleName}"></label>
+                    </div>
+                    <div class="form-group" th:if="${compte.class.simpleName=='compteCourant'}">
+                        <label for="control-label">Decouvert :</label>
+                        <label th:text="${compte.decouvert}"></label>
+                    </div>
+                    <div class="form-group" th:if="${compte.class.simpleName=='compteEpargne'}">
+                        <label for="control-label">Taux :</label>
+                        <label th:text="${compte.taux}"></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    cherchrer un compte par Code
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Les informations sur le compte
+                </div>
+                <div class="panel-body">
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    </div>
+</body>
+
+</html>
