@@ -24,11 +24,12 @@
                     <form th:action="@{/save}" method="GET">
                         <div class="form-group">
                             <label>codecompte :</label>
-                            <input type="text" name="codeCompte" class="form-control" />
+                            <input type="text" name="codeCompte" th:value="${codeCompte}" class="form-control" />
                         </div>
 
                         <button type="submit" class="btn btn-primary">chercher</button>
                     </form>
+                    <div th:if="${exception}" class="text-danger" th:text="${exception.message}"></div>
                     <!-- <p th:text="${compte.numCompte}"></p>
                     <p th:text="${compte.client.nom}"></p>
                     <p th:text="${compte.client.email}"></p>
@@ -41,19 +42,19 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="control-label">ID: </label>
+                        <label for="control-label">N° de compte: </label>
                         <label th:text="${compte.numCompte}"></label>
                     </div>
                     <div class="form-group">
-                        <label for="control-label">Designation :</label>
+                        <label for="control-label">solde :</label>
                         <label th:text="${compte.solde}"></label>
                     </div>
                     <div class="form-group">
-                        <label for="control-label">Prix :</label>
+                        <label for="control-label">Date de creation:</label>
                         <label th:text="${compte.dateCreation}"></label>
                     </div>
                     <div class="form-group">
-                        <label for="control-label">Quantite :</label>
+                        <label for="control-label">Type :</label>
                         <label th:text="${compte.class.simpleName}"></label>
                     </div>
                     <div class="form-group" th:if="${compte.class.simpleName=='compteCourant'}">
@@ -81,11 +82,32 @@
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Les informations sur le compte
+                    La liste des operations sur ce compte
                 </div>
                 <div class="panel-body">
+                    <table class="table table striped">
+                        <tr>
+                            <th>Num </th>
 
+                            <th>Type </th>
+                            <th>Date </th>
+                            <th>montant </th>
 
+                        </tr>
+                        <tr th:each="o:${operationlist}">
+                            <td th:text="${o.numero}"></td>
+
+                            <td th:text="${o.class.simpleName}"></td>
+                            <td th:text="${o.dateOperation}"></td>
+                            <td th:text="${o.montant}"></td>
+                        </tr>
+                    </table>
+                    <ul class="nav nav-pills">
+                        <li th:class="${currentPage==status.index}?'active':''" th:each="page,status:${pages}">
+                            <a th:href="@{save(page=${status.index},codeCompte=${codeCompte})}"
+                                th:text="${status.index}"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

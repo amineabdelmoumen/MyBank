@@ -29,10 +29,6 @@ public class bankImp implements bankBuziness {
 
     @Override
     public compte consultation(String codecmpt) {
-        System.out.println("*********************");
-        System.out.println("the value of codecmpt is" + codecmpt);
-        System.out.println("*********************");
-
         compte cmp = compterepo.findOne(codecmpt);
         if (cmp == null) {
             System.out.println("cmp is null no compte related to that code");
