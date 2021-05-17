@@ -36,6 +36,12 @@
  -->
                 </div>
             </div>
+
+
+
+
+
+
             <div class="panel panel-primary" th:if="${compte}">
                 <div class="panel-heading">
                     Account informations
@@ -71,47 +77,89 @@
         </div>
 
 
-        <div class="col-md-6">
+
+
+        <div class="col-md-6" th:if="${compte}">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    cherchrer un compte par Code
+                    Effectuer des operations sur ce compte
                 </div>
                 <div class="panel-body">
+                    <form th:action="@{/saveOperation}" method="post">
+                        <div class="form-group">
+                            <label>codecompte :</label>
+                            <input type="hidden" name="codeCompte" th:value="${codeCompte}" class="form-control" />
+                            <label th:text="${codeCompte}"></label>
+                        </div>
+                        <div>
+                            <input type="radio" name="typeOperation" value="VERS" checked="checked"
+                                onchange="document.getElementById('forVirement').style.display='none' " />
+                            <label>Versement</label>
+                            <input type="radio" name="typeOperation" value="RETR"
+                                onchange="document.getElementById('forVirement').style.display='none' " />
+                            <label>Retrait</label>
+                            <input type="radio" name="typeOperation" value="VIRM"
+                                onchange="document.getElementById('forVirement').style.display='block' " />
+                            <label>Virement</label>
+
+                            <p></p>
+                            <div id="forVirement">
+                                <div>
+                                    <label>Vers :</label>
+                                    <input type="text" name="codeCompte2" />
+                                </div>
+                            </div>
+                            <div>
+                                <label>montant :</label>
+                                <input type="text" name="montant" class="form-control" />
+                                <div class="text-danger" th:if="${error}" th:text="${error.message}"></div>
+                            </div>
+
+
+
+                            <p></p>
+                            <button type="submit" class="btn btn-primary">Effectuer</button>
+                    </form>
 
                 </div>
             </div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    La liste des operations sur ce compte
-                </div>
-                <div class="panel-body">
-                    <table class="table table striped">
-                        <tr>
-                            <th>Num </th>
-
-                            <th>Type </th>
-                            <th>Date </th>
-                            <th>montant </th>
-
-                        </tr>
-                        <tr th:each="o:${operationlist}">
-                            <td th:text="${o.numero}"></td>
-
-                            <td th:text="${o.class.simpleName}"></td>
-                            <td th:text="${o.dateOperation}"></td>
-                            <td th:text="${o.montant}"></td>
-                        </tr>
-                    </table>
-                    <ul class="nav nav-pills">
-                        <li th:class="${currentPage==status.index}?'active':''" th:each="page,status:${pages}">
-                            <a th:href="@{save(page=${status.index},codeCompte=${codeCompte})}"
-                                th:text="${status.index}"></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
+
+
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                La liste des operations sur ce compte
+            </div>
+            <div class="panel-body">
+                <table class="table table striped">
+                    <tr>
+                        <th>Num </th>
+
+                        <th>Type </th>
+                        <th>Date </th>
+                        <th>montant </th>
+
+                    </tr>
+                    <tr th:each="o:${operationlist}">
+                        <td th:text="${o.numero}"></td>
+
+                        <td th:text="${o.class.simpleName}"></td>
+                        <td th:text="${o.dateOperation}"></td>
+                        <td th:text="${o.montant}"></td>
+                    </tr>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:class="${currentPage==status.index}?'active':''" th:each="page,status:${pages}">
+                        <a th:href="@{save(page=${status.index},codeCompte=${codeCompte})}"
+                            th:text="${status.index}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
     </div>
 
 

@@ -1,5 +1,7 @@
 package org.sid.web;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 
 import org.sid.buziness.bankBuziness;
@@ -36,7 +38,7 @@ public class Controlleur {
             model.addAttribute("operationlist", operations.getContent());
 
             int NbrPages[] = new int[operations.getTotalPages()];
-            System.out.println("********************");
+
             model.addAttribute("codeCompte", codeCompte);
             model.addAttribute("pages", NbrPages);
             model.addAttribute("compte", cmp);
@@ -46,5 +48,23 @@ public class Controlleur {
         }
         return "comptes";
 
+    }
+
+    @RequestMapping(value = "/saveOperation", method = RequestMethod.POST)
+    public String saveOperation(Model model, String codeCompte, String typeOperation, double montant,
+            String codeCompte2) {
+        // model.addAttribute("typeOperation", typeOperation);
+        try {
+            if (typeOperation.equals("VERS"))
+                bankImp.verser(codeCompte, montant);
+            if (typeOperation.equals("RETR"))
+                bankImp.retirer(codeCompte, montant);
+            if (typeOperation.equals("VIRM"))
+                bankImp.virement(codeCompte, codeCompte2, montant);
+        } catch (Exception e) {
+            model.addAttribute("error", e);
+            return "redirect:/save?codeCompte=" + codeCompte + "&error=" + e.getMessage();
+        }
+        return "redirect:/save?codeCompte=" + codeCompte;
     }
 }

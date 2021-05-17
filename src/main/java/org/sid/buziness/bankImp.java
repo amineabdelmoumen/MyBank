@@ -40,7 +40,7 @@ public class bankImp implements bankBuziness {
     @Override
     public void verser(String codecmpt, double amount) {
         compte cmp = consultation(codecmpt);
-        operation op = new versement(new Date(), 3000, cmp);
+        operation op = new versement(new Date(), amount, cmp);
         operationrepo.save(op);
         cmp.setSolde(cmp.getSolde() + amount);
         compterepo.save(cmp);
@@ -55,7 +55,7 @@ public class bankImp implements bankBuziness {
             facilitecaise = ((compteCourant) cmp).getSolde();
         if (amount > cmp.getSolde() + facilitecaise)
             throw new RuntimeException("le montant est superieur au solde");
-        operation op = new retrait(new Date(), 3000, cmp);
+        operation op = new retrait(new Date(), amount, cmp);
         operationrepo.save(op);
         cmp.setSolde(cmp.getSolde() - amount);
         compterepo.save(cmp);
