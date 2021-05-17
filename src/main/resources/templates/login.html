@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produit Form</title>
+</head>
+
+<body class="body">
+    <div layout:fragment="content">
+        <p></p>
+        <div class="spacer col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-primary">
+                    Authentification
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="container">
+                            <span class="red" th:if="${param.error}">Username or password incorrectc</span>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="control-label">Username :</label>
+                            <input name="username" class="form-control" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="control-label">Password :</label>
+                            <input name="password" class="form-control" type="password" />
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
